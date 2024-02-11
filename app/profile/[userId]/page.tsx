@@ -1,17 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-// import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
 import Profile from "@components/Profile";
 
-export interface IPost {
-  _id: string;
-  creator: { _id: string; username: string; image: string; email: string };
-  prompt: string;
-  tag: string;
-}
+import { IPostUser } from "@interface/app";
 
 interface IParams {
   params: {
@@ -20,19 +14,16 @@ interface IParams {
 }
 
 const UserProfilPage = ({ params }: IParams) => {
-  const [userPrompts, setUserPrompts] = useState<IPost[]>([]);
-  // const { data: session } = useSession();
+  const [userPrompts, setUserPrompts] = useState<IPostUser[]>([]);
   const router = useRouter();
   const searchParam = useSearchParams();
   const username = searchParam.get("name");
 
   useEffect(() => {
     const fetchPrompt = async () => {
-      console.log("first");
       const response = await fetch(`/api/users/${params.userId}/posts`);
       if (response.ok) {
         const data = await response.json();
-        console.log("responseData", data);
         setUserPrompts(data);
       } else {
         throw new Error("failed to fetch prompt");
@@ -45,7 +36,7 @@ const UserProfilPage = ({ params }: IParams) => {
     router.push(`/update-prompt?id=${id}`);
   };
   const handleDelete = async (id: string) => {
-    const confirmDelete = confirm("Are you sure you want to this post");
+    const confirmDelete = confirm("Are you sure you want to delete this post");
 
     if (confirmDelete) {
       try {
@@ -55,8 +46,6 @@ const UserProfilPage = ({ params }: IParams) => {
 
         const filteredPrompt = userPrompts.filter((p) => p._id !== id);
         setUserPrompts(filteredPrompt);
-
-        console.log("res", res);
       } catch (error: any) {
         console.log(error);
       }

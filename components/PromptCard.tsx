@@ -1,12 +1,15 @@
 "use client";
 import React, { useState } from "react";
+
 import Image from "next/image";
+
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { IPromptFeeds } from "./Feeds";
 
-interface IPromptCard {
+import { IPromptFeeds } from "@interface/app";
+
+interface IProps {
   prompt: IPromptFeeds;
   handleEdit(id: string): void;
   handleDelete(id: string): void;
@@ -18,7 +21,7 @@ const PromptCard = ({
   handleTagClick,
   handleEdit,
   handleDelete,
-}: IPromptCard) => {
+}: IProps) => {
   const [copied, setCopied] = useState<string>("");
   const { data: session } = useSession();
   const pathName = usePathname();

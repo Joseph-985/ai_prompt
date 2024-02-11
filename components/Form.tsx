@@ -1,16 +1,18 @@
 import React, { FormEvent } from "react";
-import { IPost } from "@app/create-prompt/page";
+
 import Link from "next/link";
 
-interface IForm {
+import { IPost } from "@interface/app";
+
+interface IProps {
   typeOf: string;
   post: IPost;
-  setPost(post: IPost): void;
   submitting: boolean | undefined;
+  setPost(post: IPost): void;
   handleSubmit(e: FormEvent): any;
 }
 
-const Form = ({ typeOf, post, setPost, submitting, handleSubmit }: IForm) => {
+const Form = ({ typeOf, post, setPost, submitting, handleSubmit }: IProps) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">

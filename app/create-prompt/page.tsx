@@ -1,15 +1,13 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import Form from "@components/Form";
 
-export interface IPost {
-  prompt: string;
-  tag: string;
-}
+import { IPost } from "@interface/app";
 
 const CreatePrompt = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>();
@@ -19,7 +17,6 @@ const CreatePrompt = () => {
   const router = useRouter();
 
   const createPost = async (e: FormEvent) => {
-    console.log("create post");
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -32,7 +29,6 @@ const CreatePrompt = () => {
           tag: post.tag,
         }),
       });
-      console.log("response", response);
 
       if (response.ok) {
         router.push("/");

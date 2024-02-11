@@ -2,29 +2,21 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 import Profile from "@components/Profile";
 
-export interface IPost {
-  _id: string;
-  creator: { _id: string; username: string; image: string; email: string };
-  prompt: string;
-  tag: string;
-}
+import { IPostUser } from "@interface/app";
 
 const ProfilPage = () => {
-  const [userPrompts, setUserPrompts] = useState<IPost[]>([]);
+  const [userPrompts, setUserPrompts] = useState<IPostUser[]>([]);
   const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
     const fetchPrompt = async () => {
-      console.log("first");
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
       if (response.ok) {
         const data = await response.json();
-        console.log("responseData", data);
         setUserPrompts(data);
       } else {
         throw new Error("failed to fetch prompt");
@@ -47,8 +39,6 @@ const ProfilPage = () => {
 
         const filteredPrompt = userPrompts.filter((p) => p._id !== id);
         setUserPrompts(filteredPrompt);
-
-        console.log("res", res);
       } catch (error: any) {
         console.log(error);
       }
