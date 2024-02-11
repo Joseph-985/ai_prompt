@@ -5,10 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import Form from "@components/Form";
 
-export interface IPost {
-  prompt: string;
-  tag: string;
-}
+import { IPost } from "@interface/app";
 
 const UpdatePrompt = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>();
@@ -43,7 +40,6 @@ const UpdatePrompt = () => {
           tag: post.tag,
         }),
       });
-      console.log("response", response);
 
       if (response.ok) {
         router.push("/");

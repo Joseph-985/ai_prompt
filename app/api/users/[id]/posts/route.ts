@@ -1,12 +1,9 @@
 import { connectToDatabase } from "@utils/database";
 import Prompt from "@models/prompt/prompt_model";
 
-export type TParams = {
-  params: { id: string };
-};
+import { TParams } from "@interface/app";
 
 export const GET = async (request: Request, { params }: TParams) => {
-  console.log("params", params);
   try {
     await connectToDatabase();
     const prompts = await Prompt.find({ creator: params.id }).populate(

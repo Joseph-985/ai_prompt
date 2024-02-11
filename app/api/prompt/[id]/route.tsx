@@ -1,10 +1,7 @@
 import { connectToDatabase } from "@utils/database";
 import Prompt from "@models/prompt/prompt_model";
-import { TParams } from "@app/api/users/[id]/posts/route";
 
-type TEdit = {
-  params: { prompt: string; tag: string; id: string };
-};
+import { TEdit, TParams } from "@interface/app";
 
 export const GET = async (request: Request, { params }: TParams) => {
   try {

@@ -3,17 +3,7 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import PromptCard from "./PromptCard";
 
-export interface IPromptFeeds {
-  creator: { _id: string; username: string; image: string; email: string };
-  prompt: string;
-  tag: string;
-  _id: string;
-}
-
-export interface IPromptList {
-  data: IPromptFeeds[];
-  handleTagClick(tag: string): void;
-}
+import { IPromptFeeds, IPromptList } from "@interface/app";
 
 const PromptCardList = ({ data, handleTagClick }: IPromptList) => {
   const handleEdit = () => {};

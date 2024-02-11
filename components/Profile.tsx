@@ -1,12 +1,13 @@
 import React from "react";
 
-import { IPost } from "@app/profile/page";
 import PromptCard from "./PromptCard";
 
-interface IProfile {
+import { IPostUser } from "@interface/app";
+
+interface IProps {
   name: string;
   desc: string;
-  data: IPost[];
+  data: IPostUser[];
   handleEdit(id: string): void;
   handleDelete(id: string): void;
   handleTagClick?(tag: string): void;
@@ -19,7 +20,7 @@ const Profile = ({
   handleEdit,
   handleDelete,
   handleTagClick,
-}: IProfile) => {
+}: IProps) => {
   console.log("data", data);
   return (
     <section className="w-full">
